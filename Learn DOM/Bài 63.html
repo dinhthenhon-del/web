@@ -1,0 +1,168 @@
+<html>
+<head>
+    <title>Đăng ký thành viên</title>
+
+    <script>
+        function loadDate() {
+            for (var i = 1; i <= 31; i++)
+                document.getElementById("ngay").innerHTML +=
+                    "<option>" + i + "</option>";
+
+            for (var i = 1; i <= 12; i++)
+                document.getElementById("thang").innerHTML +=
+                    "<option>" + i + "</option>";
+
+            var currentYear = new Date().getFullYear();
+
+            for (var i = 1970; i <= currentYear; i++)
+                document.getElementById("nam").innerHTML +=
+                    "<option>" + i + "</option>";
+        }
+
+        function dangKy() {
+            var ten = document.getElementById("txtTen").value;
+            var email = document.getElementById("txtEmail").value;
+
+            if (ten.trim() == "") {
+                alert("Tên không được để trống");
+                return;
+            }
+
+            if (!email.includes("@") || !email.includes(".")) {
+                alert("Email không hợp lệ");
+                return;
+            }
+
+            var gioitinh =
+                document.querySelector('input[name="gioitinh"]:checked').value;
+
+            var ds = document.querySelectorAll('input[name="sothich"]:checked');
+            var sothich = [];
+
+            for (var i = 0; i < ds.length; i++) {
+                sothich.push(ds[i].value);
+            }
+
+            var mau =
+                document.querySelector('input[name="mau"]:checked').value;
+
+            var ngay = document.getElementById("ngay").value;
+            var thang = document.getElementById("thang").value;
+            var nam = document.getElementById("nam").value;
+
+            var tbody = document.getElementById("tbThanhVien");
+            var tr = document.createElement("tr");
+
+            tr.innerHTML =
+                "<td>" + ten + "</td>" +
+                "<td>" + email + "</td>" +
+                "<td>" + gioitinh + "</td>" +
+                "<td>" + ngay + "/" + thang + "/" + nam + "</td>" +
+                "<td>" + sothich.join(", ") + "</td>" +
+                "<td>" + mau + "</td>";
+
+            tr.onmouseover = function() {
+                this.style.backgroundColor = "yellow";
+                this.style.color = "red";
+            };
+
+            tr.onmouseout = function() {
+                this.style.backgroundColor = "white";
+                this.style.color = "black";
+            };
+
+            tbody.appendChild(tr);
+        }
+    </script>
+</head>
+
+<body onload="loadDate()">
+
+<table width="760" border="1" align="center">
+    <tr>
+        <td>
+            <h1>Đăng ký thành viên</h1>
+            <hr>
+
+            <form id="frmDangKy">
+
+                Tên(*)
+                <input type="text" id="txtTen" name="txtTen">
+                <br>
+
+                Ngày sinh(*)
+                Ngày:
+                <select id="ngay"></select>
+
+                Tháng:
+                <select id="thang"></select>
+
+                Năm:
+                <select id="nam"></select>
+                <br>
+
+                Giới tính(*)
+                <input type="radio" name="gioitinh" value="Nam" checked> Nam
+                <input type="radio" name="gioitinh" value="Nữ"> Nữ
+                <br>
+
+                Email(*)
+                <input type="text" id="txtEmail" name="txtEmail">
+                <br><br>
+
+                Sở thích của bạn:<br>
+
+                <input type="checkbox" name="sothich" value="Mua sắm"> Mua sắm<br>
+                <input type="checkbox" name="sothich" value="Du lịch"> Du lịch<br>
+                <input type="checkbox" name="sothich" value="Tán gẫu"> Tán gẫu<br>
+                <input type="checkbox" name="sothich" value="Đọc sách"> Đọc sách<br>
+                <input type="checkbox" name="sothich" value="Nghe nhạc"> Nghe nhạc<br>
+
+                Màu yêu thích của bạn:<br>
+
+                <input type="radio" name="mau" value="Màu xanh da trời" checked>
+                <span style="background:cyan;">Màu xanh da trời</span><br>
+
+                <input type="radio" name="mau" value="Màu đỏ">
+                <span style="background:red;">Màu đỏ</span><br>
+
+                <input type="radio" name="mau" value="Màu vàng">
+                <span style="background:yellow;">Màu vàng</span><br>
+
+                <input type="radio" name="mau" value="Màu xanh lá cây">
+                <span style="background:green;">Màu xanh lá cây</span><br>
+
+                <input type="radio" name="mau" value="Màu xanh tím">
+                <span style="background:violet;">Màu xanh tím</span><br><br>
+
+                <input type="button"
+                       value="Đăng ký"
+                       onclick="dangKy()">
+
+                <input type="reset" value="Tiếp">
+
+            </form>
+
+            <br>
+
+            <table border="1" width="100%">
+                <thead style="background:blue;color:white;">
+                    <tr>
+                        <th>Tên</th>
+                        <th>Email</th>
+                        <th>Giới tính</th>
+                        <th>Năm sinh</th>
+                        <th>Sở thích</th>
+                        <th>Màu yêu thích</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tbThanhVien"></tbody>
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

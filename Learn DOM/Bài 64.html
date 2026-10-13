@@ -1,0 +1,136 @@
+<html>
+<head>
+    <title>Dynamic Table</title>
+
+    <script>
+        function dongHo() {
+            var d = new Date();
+
+            document.getElementById("clock").innerHTML =
+                d.getHours() + ":" +
+                d.getMinutes() + ":" +
+                d.getSeconds();
+
+            setTimeout(dongHo, 1000);
+        }
+
+        function clickChuot(e) {
+            if (e.button == 0)
+                alert("Bạn vừa click chuột trái");
+
+            if (e.button == 2)
+                alert("Bạn vừa click chuột phải");
+        }
+
+        function chonDong(tr) {
+            if (tr.style.backgroundColor == "red")
+                tr.style.backgroundColor = "";
+            else
+                tr.style.backgroundColor = "red";
+        }
+
+        function themDong() {
+            var table = document.getElementById("myTable");
+            var tr = table.insertRow();
+
+            var td1 = tr.insertCell(0);
+            var td2 = tr.insertCell(1);
+
+            td1.innerHTML = "Thêm dòng mới ở đây";
+            td2.innerHTML = "Thêm dòng mới ở đây";
+
+            tr.onclick = function() {
+                chonDong(this);
+            };
+        }
+
+        function xoaDong() {
+            var table = document.getElementById("myTable");
+
+            for (var i = table.rows.length - 1; i >= 0; i--) {
+                if (table.rows[i].style.backgroundColor == "red")
+                    table.deleteRow(i);
+            }
+        }
+
+        function chiHienDong() {
+            var table = document.getElementById("myTable");
+
+            for (var i = 0; i < table.rows.length; i++) {
+                if (table.rows[i].style.backgroundColor != "red")
+                    table.rows[i].style.display = "none";
+            }
+        }
+
+        function chiHienCot() {
+            var table = document.getElementById("myTable");
+
+            for (var i = 0; i < table.rows.length; i++) {
+                table.rows[i].cells[1].style.display = "none";
+            }
+        }
+
+        function moTrangMoi() {
+            window.open("https://tranduythanh.com");
+        }
+    </script>
+</head>
+
+<body onload="dongHo()" oncontextmenu="return false">
+
+    <table border="1" width="520" align="center">
+        <tr>
+            <td>
+
+                <div id="clock"></div>
+
+                <p onmousedown="clickChuot(event)">
+                    Click chuột vào dòng này. Sẽ xuất hiện thông báo phím bấm của chuột
+                </p>
+
+                <table id="myTable" border="1" cellspacing="0">
+                    <tr onclick="chonDong(this)">
+                        <td>Thêm dòng mới ở đây</td>
+                        <td>Thêm dòng mới ở đây</td>
+                    </tr>
+
+                    <tr onclick="chonDong(this)">
+                        <td>Thêm dòng mới ở đây</td>
+                        <td>Thêm dòng mới ở đây</td>
+                    </tr>
+
+                    <tr onclick="chonDong(this)">
+                        <td>Thêm dòng mới ở đây</td>
+                        <td>Thêm dòng mới ở đây</td>
+                    </tr>
+
+                    <tr onclick="chonDong(this)">
+                        <td>Dòng 1 cột 1</td>
+                        <td>Dòng 1 cột 2</td>
+                    </tr>
+
+                    <tr onclick="chonDong(this)">
+                        <td>Dòng 2 cột 1</td>
+                        <td>Dòng 2 cột 2</td>
+                    </tr>
+
+                    <tr onclick="chonDong(this)">
+                        <td>Dòng 3 cột 1</td>
+                        <td>Dòng 3 cột 2</td>
+                    </tr>
+                </table>
+
+                <br>
+
+                <input type="button" value="Thêm vào" onclick="themDong()">
+                <input type="button" value="Xóa" onclick="xoaDong()">
+                <input type="button" value="Chỉ hiện dòng" onclick="chiHienDong()">
+                <input type="button" value="Chỉ hiện cột" onclick="chiHienCot()">
+                <input type="button" value="Mở một trang mới" onclick="moTrangMoi()">
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
